@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Crud1.Models.Ninio>
+@{
+    ViewData["Title"] = "Lista de Niños";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    @if(TempData["mensaje"]!= null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @TempData["mensaje"];
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="row">
+        <div class=" col-sm-6">
+            <h3>Lista de Niños</h3>
+        </div>
+        <div class=" col-sm-6">
+            <a class="btn btn-success d-block" asp-action="Create" asp-controller="Ninios">Agregar Niños</a>
+        </div>
+    </div>
+    <div class="row">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <td>@Html.DisplayNameFor(n => n.Id)</td>
+                        <td>@Html.DisplayNameFor(n => n.nombres)</td>
+                        <td>@Html.DisplayNameFor(n => n.apellidos)</td>
+                        <td>@Html.DisplayNameFor(n => n.fechanac)</td>
+                        <td>@Html.DisplayNameFor(n => n.idtutor)</td>
+                        <td>Acciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td>@x.Id</td>
+                            <td>@x.nombres}</td>
+                            <td>@x.apellidos</td>
+                            <td>@x.fechanac</td>
+                            <td>@x.idtutor</td>
+                            <td>
+                                <a asp-controller="Ninios" asp-action="Edit" asp-route-id="@x.Id" class="btn btn-warning">Editar</a>
+                                <a asp-controller="Ninios" asp-action="Delete" asp-route-id="@x.Id" class="btn btn-danger">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No existen registros</p>
+        }
+    </div>
+</div>
